@@ -29,17 +29,12 @@ int main(int argv, char **argc)
 	pthread_t timer_thread;
 	pthread_create(&timer_thread, NULL, timer, NULL);
 
+	Bike bike;
+	Bike__init(&bike, 0.0f, 0.0f);
+
 	/* Quit loop if exit is true. */
 	while(!EXIT){
 		tb_clear();
-
-		/* Draw the background. */
-		for(int x = 0; x < tb_width(); x++){
-			for(int y = 0; y < tb_height(); y++){
-				tb_change_cell(x, y, ' ', BACKGROUND_COLOR,
-				BACKGROUND_COLOR);
-			}
-		}
 
 		/* Update the simulation. */
 		if(elapsed_time % UPDATE_SPEED == 0) {
@@ -49,6 +44,10 @@ int main(int argv, char **argc)
 
 		/* Draw. */
 		if(elapsed_time % DRAW_SPEED == 0) {
+			drawBackground();
+
+			Bike__draw(&bike);
+
 			/* Draw to screen. */
 			tb_present();
 
@@ -65,6 +64,17 @@ int main(int argv, char **argc)
 
 	tb_shutdown();
 	return 0;
+}
+
+void drawBackground()
+{
+	/* Draw the background. */
+	for(int x = 0; x < tb_width(); x++){
+		for(int y = 0; y < tb_height(); y++){
+			tb_change_cell(x, y, ' ', BACKGROUND_COLOR,
+			BACKGROUND_COLOR);
+		}
+	}
 }
 
 void *timer()

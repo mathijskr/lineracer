@@ -10,10 +10,12 @@
 #include "termbox.h"
 
 #include "constants.h"
+#include "bike.h"
 
 #define UPDATE_SPEED 10 // Must be at least 10
 #define DRAW_SPEED 16 // 16 := 60 ~fps
 
+void drawBackground();
 void *timer();
 
 #endif
