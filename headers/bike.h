@@ -1,6 +1,8 @@
 #ifndef BIKE_H
 #define BIKE_H
 
+#include <stdlib.h>
+
 #include "termbox.h"
 #include "constants.h"
 
@@ -26,7 +28,7 @@ static const char Bike__sprite[BIKE_SPRITE_SIZE] = {	'/','-','-','|','>',
 void Bike__init(Bike *this, float x, float y);
 
 void Bike__accelerate(Bike *this, float direction);
-void Bike__update(Bike *this, int ground, float gravity, float speed_factor);
+void Bike__update(Bike *this, int *linepiece_x, int *linepiece_y, int linepiece_count, int ground, float gravity, float speed_factor);
 
 void Bike__draw(Bike *this);
 

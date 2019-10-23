@@ -15,7 +15,7 @@ void Bike__accelerate(Bike *this, float direction)
 	this->ax += direction * BIKE_ACCELERATION;
 }
 
-void Bike__update(Bike *this, int ground, float gravity, float speed_factor)
+void Bike__update(Bike *this, int linepiece_x[], int linepiece_y[], int linepiece_count, int ground, float gravity, float speed_factor)
 {
 	this->ay = gravity / speed_factor;
 	this->ax /= speed_factor;
@@ -29,10 +29,17 @@ void Bike__update(Bike *this, int ground, float gravity, float speed_factor)
 
 	this->vy += this->ay;
 	this->x += this->vx;
-	this->y += this->vy;
+
+	for(int i = 0; i < linepiece_count; i++) {
+		if(abs(this->x - linepiece_x[i]) < 5) {
+			ground = linepiece_y[i];
+		}
+	}
 
 	if(this->y > ground)
 		this->y = ground;
+	else
+		this->y += this->vy;
 }
 
 void Bike__draw(Bike *this)

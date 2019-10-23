@@ -4,7 +4,7 @@
 #include "termbox.h"
 #include "constants.h"
 
-#define LINEPIECES_MAX_SIZE 50
+#define LINEPIECES_MAX_SIZE 100
 #define LINE_COLOR TB_BLUE
 
 typedef struct Linepieces Linepieces;

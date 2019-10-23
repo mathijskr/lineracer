@@ -5,6 +5,6 @@
 
 #define BACKGROUND_COLOR TB_BLACK
 
-#define GRAVITY 0.001f
+#define GRAVITY 0.0004f
 
 #endif

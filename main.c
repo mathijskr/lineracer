@@ -42,15 +42,15 @@ int main(int argv, char **argc)
 			/* Handle input. */
 			input(&bike, &linepieces);
 
-			Bike__update(&bike, GROUND, GRAVITY, 1000.0f / UPDATE_SPEED);
+			Bike__update(&bike, linepieces.x, linepieces.y, linepieces.SIZE, GROUND, GRAVITY, 1000.0f / UPDATE_SPEED);
 		}
 
 		/* Draw. */
 		if(elapsed_time % DRAW_SPEED == 0) {
 			drawBackground();
 
-			Bike__draw(&bike);
 			Linepieces__draw(&linepieces);
+			Bike__draw(&bike);
 
 			/* Draw to screen. */
 			tb_present();
