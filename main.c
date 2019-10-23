@@ -17,7 +17,7 @@ int main(int argv, char **argc)
 		return -1;
 	}
 
-	tb_select_input_mode(TB_INPUT_ESC);
+	tb_select_input_mode(TB_INPUT_ESC | TB_INPUT_MOUSE);
 	tb_select_output_mode(TB_OUTPUT_NORMAL);
 	tb_clear();
 
@@ -30,6 +30,9 @@ int main(int argv, char **argc)
 	Bike bike;
 	Bike__init(&bike, 0.0f, 0.0f);
 
+	Linepieces linepieces;
+	Linepieces__init(&linepieces);
+
 	/* Quit loop if exit is true. */
 	while(!EXIT){
 		tb_clear();
@@ -37,7 +40,7 @@ int main(int argv, char **argc)
 		/* Update the simulation. */
 		if(elapsed_time % UPDATE_SPEED == 0) {
 			/* Handle input. */
-			input(&bike);
+			input(&bike, &linepieces);
 
 			Bike__update(&bike, GROUND, GRAVITY, 1000.0f / UPDATE_SPEED);
 		}
@@ -47,6 +50,7 @@ int main(int argv, char **argc)
 			drawBackground();
 
 			Bike__draw(&bike);
+			Linepieces__draw(&linepieces);
 
 			/* Draw to screen. */
 			tb_present();
@@ -60,26 +64,37 @@ int main(int argv, char **argc)
 	return 0;
 }
 
-void input(Bike *bike)
+void input(Bike *bike, Linepieces *linepieces)
 {
 	struct tb_event ev;
 
 	/* Update input with a timeout of n ms. */
 	tb_peek_event(&ev, 0);
 
-	switch(ev.key) {
-		case TB_KEY_ESC: {
-			EXIT = true;
+	switch(ev.type) {
+		case TB_EVENT_KEY: {
+			switch(ev.key) {
+				case TB_KEY_ESC: {
+					EXIT = true;
+					break;
+				}
+
+				case TB_KEY_ARROW_LEFT: {
+					Bike__accelerate(bike, -0.1f);
+					break;
+				}
+
+				case TB_KEY_ARROW_RIGHT: {
+					Bike__accelerate(bike, 0.1f);
+					break;
+				}
+			}
+
 			break;
 		}
 
-		case TB_KEY_ARROW_LEFT: {
-			Bike__accelerate(bike, -0.1f);
-			break;
-		}
-
-		case TB_KEY_ARROW_RIGHT: {
-			Bike__accelerate(bike, 0.1f);
+		case TB_EVENT_MOUSE: {
+			Linepieces__add(linepieces, ev.x, ev.y);
 			break;
 		}
 	}
