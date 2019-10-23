@@ -24,11 +24,9 @@ void Linepieces__add(Linepieces *this, int x, int y)
 
 void Linepieces__draw(Linepieces *this)
 {
-	char line_symbols[this->SIZE];
-
 	for(int i = 0; i < this->SIZE; i++){
 
-		line_symbols[i] = '_';
+		this->line_symbols[i] = '_';
 
 		if(i > 0){
 			int delta_x = this->x[i] - this->x[i - 1];
@@ -36,11 +34,11 @@ void Linepieces__draw(Linepieces *this)
 
 			if(delta_y == 1){
 				if(delta_x == 1){
-					line_symbols[i] = '\\';
+					this->line_symbols[i] = '\\';
 				} else if(delta_x == 0){
-					line_symbols[i] = '|';
+					this->line_symbols[i] = '|';
 				} else if(delta_x == -1){
-					line_symbols[i] = '/';
+					this->line_symbols[i] = '/';
 				}
 			}
 		}
@@ -51,16 +49,16 @@ void Linepieces__draw(Linepieces *this)
 
 			if(delta_y == 1){
 				if(delta_x == 1){
-					line_symbols[i] = '/';
+					this->line_symbols[i] = '/';
 				} else if(delta_x == 0){
-					line_symbols[i] = '|';
+					this->line_symbols[i] = '|';
 				} else if(delta_x == -1){
-					line_symbols[i] = '\\';
+					this->line_symbols[i] = '\\';
 				}
 			}
 		}
 	}
 
 	for(int i = 0; i < this->SIZE; i++)
-		tb_change_cell(this->x[i], this->y[i], line_symbols[i], LINE_COLOR, BACKGROUND_COLOR);
+		tb_change_cell(this->x[i], this->y[i], this->line_symbols[i], LINE_COLOR, BACKGROUND_COLOR);
 }

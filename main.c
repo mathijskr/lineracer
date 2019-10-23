@@ -61,6 +61,41 @@ int main(int argv, char **argc)
 	}
 
 	tb_shutdown();
+
+	printf("Save this level by copying the symbols below. \n");
+
+	/* Find max y value. */
+	int max_y = 0;
+	for(int i = 0; i < linepieces.SIZE; i++)
+		if(linepieces.y[i] > max_y)
+			max_y = linepieces.y[i];
+
+	/* Find max x value. */
+	int max_x = 0;
+	for(int i = 0; i < linepieces.SIZE; i++)
+		if(linepieces.x[i] > max_x)
+			max_x = linepieces.x[i];
+
+	/* Create an empty level. */
+	char level [max_y][max_x];
+	for(int y = 0; y < max_y; y++)
+		for(int x = 0; x < max_x; x++)
+			level[y][x] = ' ';
+
+	/* Save all line symbols. */
+	for(int i = 0; i < linepieces.SIZE; i++)
+		level[linepieces.y[i]][linepieces.x[i]] = linepieces.line_symbols[i];
+
+	/* Print level. */
+	for(int y = 0; y < max_y; y++){
+		for(int x = 0; x < max_x; x++)
+			printf("%c", level[y][x]);
+
+		printf("\n");
+	}
+
+	printf("\n");
+
 	return 0;
 }
 

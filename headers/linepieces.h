@@ -15,6 +15,7 @@ struct Linepieces {
 
 	int x[LINEPIECES_MAX_SIZE];
 	int y[LINEPIECES_MAX_SIZE];
+	char line_symbols[LINEPIECES_MAX_SIZE];
 };
 
 void Linepieces__init(Linepieces *this);
