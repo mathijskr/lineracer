@@ -24,8 +24,6 @@ int main(int argv, char **argc)
 	GROUND = tb_height() - 1;
 	WALL = tb_width() - 1;
 
-	struct tb_event ev;
-
 	pthread_t timer_thread;
 	pthread_create(&timer_thread, NULL, timer, NULL);
 
@@ -38,8 +36,10 @@ int main(int argv, char **argc)
 
 		/* Update the simulation. */
 		if(elapsed_time % UPDATE_SPEED == 0) {
-			/* Increase time to ensure that the simulation won't be updated more than once. */
-			elapsed_time++;
+			/* Handle input. */
+			input(&bike);
+
+			Bike__update(&bike, GROUND, GRAVITY, 1000.0f / UPDATE_SPEED);
 		}
 
 		/* Draw. */
@@ -50,20 +50,39 @@ int main(int argv, char **argc)
 
 			/* Draw to screen. */
 			tb_present();
-
-			/* Increase time to ensure that the simulation won't be drawn more than once. */
-			elapsed_time++;
 		}
 
-		/* Update input with a timeout of n ms. */
-		int input = tb_peek_event(&ev, 0);
-
-		if(input == TB_INPUT_ESC)
-			EXIT = true;
+		/* Increase time to ensure that timed loops won't be called twice. */
+		elapsed_time++;
 	}
 
 	tb_shutdown();
 	return 0;
+}
+
+void input(Bike *bike)
+{
+	struct tb_event ev;
+
+	/* Update input with a timeout of n ms. */
+	tb_peek_event(&ev, 0);
+
+	switch(ev.key) {
+		case TB_KEY_ESC: {
+			EXIT = true;
+			break;
+		}
+
+		case TB_KEY_ARROW_LEFT: {
+			Bike__accelerate(bike, -0.1f);
+			break;
+		}
+
+		case TB_KEY_ARROW_RIGHT: {
+			Bike__accelerate(bike, 0.1f);
+			break;
+		}
+	}
 }
 
 void drawBackground()

@@ -12,9 +12,10 @@
 #include "constants.h"
 #include "bike.h"
 
-#define UPDATE_SPEED 10 // Must be at least 10
+#define UPDATE_SPEED 20 // Must be at least 10
 #define DRAW_SPEED 16 // 16 := 60 ~fps
 
+void input(Bike *bike);
 void drawBackground();
 void *timer();
 
