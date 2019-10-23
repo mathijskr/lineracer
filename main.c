@@ -62,19 +62,18 @@ int main(int argv, char **argc)
 
 	tb_shutdown();
 
+	save_level(&linepieces);
+
+	return 0;
+}
+
+void save_level(Linepieces *linepieces)
+{
 	printf("Save this level by copying the symbols below. \n");
 
-	/* Find max y value. */
-	int max_y = 0;
-	for(int i = 0; i < linepieces.SIZE; i++)
-		if(linepieces.y[i] > max_y)
-			max_y = linepieces.y[i];
-
-	/* Find max x value. */
-	int max_x = 0;
-	for(int i = 0; i < linepieces.SIZE; i++)
-		if(linepieces.x[i] > max_x)
-			max_x = linepieces.x[i];
+	/* Find max x and y values. */
+	int max_x = max(linepieces->y, linepieces->SIZE);
+	int max_y = max(linepieces->x, linepieces->SIZE);
 
 	/* Create an empty level. */
 	char level [max_y][max_x];
@@ -83,8 +82,8 @@ int main(int argv, char **argc)
 			level[y][x] = ' ';
 
 	/* Save all line symbols. */
-	for(int i = 0; i < linepieces.SIZE; i++)
-		level[linepieces.y[i]][linepieces.x[i]] = linepieces.line_symbols[i];
+	for(int i = 0; i < linepieces->SIZE; i++)
+		level[linepieces->y[i]][linepieces->x[i]] = linepieces->line_symbols[i];
 
 	/* Print level. */
 	for(int y = 0; y < max_y; y++){
@@ -95,8 +94,17 @@ int main(int argv, char **argc)
 	}
 
 	printf("\n");
+}
 
-	return 0;
+int max(int *array, int size)
+{
+	int max_val = 0;
+
+	for(int i = 0; i < size; i++)
+		if(array[i] > max_val)
+			max_val = array[i];
+
+	return max_val;
 }
 
 void input(Bike *bike, Linepieces *linepieces)

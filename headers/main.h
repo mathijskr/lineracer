@@ -16,6 +16,8 @@
 #define UPDATE_SPEED 20 // Must be at least 10
 #define DRAW_SPEED 16 // 16 := 60 ~fps
 
+void save_level(Linepieces *linepieces);
+int max(int *array, int size);
 void input(Bike *bike, Linepieces *linepieces);
 void drawBackground();
 void *timer();
