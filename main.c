@@ -42,7 +42,8 @@ int main(int argv, char **argc)
 			/* Handle input. */
 			input(&bike, &linepieces);
 
-			Bike__update(&bike, linepieces.x, linepieces.y, linepieces.SIZE, GROUND, GRAVITY, 1000.0f / UPDATE_SPEED);
+			Bike__update(&bike, linepieces.x, linepieces.y,
+			linepieces.SIZE, GROUND, GRAVITY, 1000.0f / UPDATE_SPEED);
 		}
 
 		/* Draw. */
@@ -56,7 +57,8 @@ int main(int argv, char **argc)
 			tb_present();
 		}
 
-		/* Increase time to ensure that timed loops won't be called twice. */
+		/* Increase time to ensure that timed loops won't
+		 * be called twice. */
 		elapsed_time++;
 	}
 
@@ -83,7 +85,8 @@ void save_level(Linepieces *linepieces)
 
 	/* Save all line symbols. */
 	for(int i = 0; i < linepieces->SIZE; i++)
-		level[linepieces->y[i]][linepieces->x[i]] = linepieces->line_symbols[i];
+		level[linepieces->y[i]][linepieces->x[i]] =
+		linepieces->line_symbols[i];
 
 	/* Print level. */
 	for(int y = 0; y < max_y; y++){

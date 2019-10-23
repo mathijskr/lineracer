@@ -12,16 +12,22 @@ void Bike__init(Bike *this, float x, float y)
 
 void Bike__accelerate(Bike *this, float direction)
 {
-	this->ax += direction * BIKE_ACCELERATION;
+	if(direction > 0.0f)
+		this->ax += BIKE_ACCELERATION;
+	else
+		this->ax -= BIKE_ACCELERATION;
 }
 
-void Bike__update(Bike *this, int linepiece_x[], int linepiece_y[], int linepiece_count, int ground, float gravity, float speed_factor)
+void Bike__update(Bike *this, int linepiece_x[], int linepiece_y[],
+int linepiece_count, int ground, float gravity, float speed_factor)
 {
+	/* Change the bike's acceleration according to the update speed. */
 	this->ay = gravity / speed_factor;
 	this->ax /= speed_factor;
 
 	this->vx += this->ax;
 
+	/* Limit the bike's speed to BIKE_TOP_SPEED. */
 	if(this->vx > BIKE_TOP_SPEED) {
 		this->vx = BIKE_TOP_SPEED;
 		this->ax = 0.0f;
@@ -30,12 +36,15 @@ void Bike__update(Bike *this, int linepiece_x[], int linepiece_y[], int linepiec
 	this->vy += this->ay;
 	this->x += this->vx;
 
+	/* If a line exist below the bike, within it's hitbox,
+	 * set that line as the bike's ground. */
 	for(int i = 0; i < linepiece_count; i++) {
 		if(abs(this->x - linepiece_x[i]) < 5) {
 			ground = linepiece_y[i];
 		}
 	}
 
+	/* Prevent the bike from falling through the ground. */
 	if(this->y > ground)
 		this->y = ground;
 	else
@@ -46,7 +55,13 @@ void Bike__draw(Bike *this)
 {
 	int index = 0;
 
-	for(int y = 0; y < BIKE_SPRITE_SIZE / BIKE_SPRITE_ROW; y++)
-		for(int x = 0; x < BIKE_SPRITE_ROW; x++)
-			tb_change_cell(this->x + x, this->y - BIKE_SPRITE_SIZE / BIKE_SPRITE_ROW + 1 + y, Bike__sprite[index++], BIKE_COLOR, BACKGROUND_COLOR);
+	/* Loop through every character in Bike__sprite
+	 * and draw that character. */
+	for(int y = 0; y < BIKE_SPRITE_SIZE / BIKE_SPRITE_ROW; y++) {
+		for(int x = 0; x < BIKE_SPRITE_ROW; x++) {
+			tb_change_cell(this->x + x,
+			this->y - BIKE_SPRITE_SIZE / BIKE_SPRITE_ROW + 1 + y,
+			Bike__sprite[index++], BIKE_COLOR, BACKGROUND_COLOR);
+		}
+	}
 }
