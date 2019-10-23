@@ -11,14 +11,15 @@ typedef struct Linepieces Linepieces;
 
 struct Linepieces {
 	int SIZE;
+	int index;
 
-	float x[LINEPIECES_MAX_SIZE];
-	float y[LINEPIECES_MAX_SIZE];
+	int x[LINEPIECES_MAX_SIZE];
+	int y[LINEPIECES_MAX_SIZE];
 };
 
 void Linepieces__init(Linepieces *this);
 
-void Linepieces__add(Linepieces *this, float x, float y);
+void Linepieces__add(Linepieces *this, int x, int y);
 
 void Linepieces__draw(Linepieces *this);
 
