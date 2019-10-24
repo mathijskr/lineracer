@@ -5,7 +5,7 @@ OUT=lineracer
 INCLUDE=-I headers/
 OBJS=./out/linepieces.o ./out/bike.o 
 
-$(OUT): $(OBJS) ./out/main.o
+$(OUT): ./out $(OBJS) ./out/main.o
 	$(CC) $(FLAGS) $(LIBS) $(INCLUDE) -o $(OUT) ./out/main.o $(OBJS) 
 
 ./out:
