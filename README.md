@@ -1,5 +1,5 @@
 # lineracer
-A line rider game in your terminal.
+A simple line rider game in your terminal using termbox.
 
 ## How to install:
 1. Install termbox development files: 
