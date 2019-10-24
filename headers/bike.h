@@ -11,6 +11,8 @@
 #define BIKE_COLOR TB_RED
 #define BIKE_ACCELERATION 0.1f
 #define BIKE_TOP_SPEED 10.0f
+#define BIKE_WIDTH 3.0f
+#define BIKE_HEIGHT 3.0f
 
 typedef struct Bike Bike;
 

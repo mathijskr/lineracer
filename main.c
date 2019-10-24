@@ -117,8 +117,11 @@ void input(Bike *bike, Linepieces *linepieces)
 	/* Update input with a timeout of n ms. */
 	tb_peek_event(&ev, 0);
 
+	/* Determine type of input: keyboard or mouse. */
 	switch(ev.type) {
+		/* Keyboard input. */
 		case TB_EVENT_KEY: {
+			/* Determine which key was pressed. */
 			switch(ev.key) {
 				case TB_KEY_ESC: {
 					EXIT = true;
@@ -139,6 +142,7 @@ void input(Bike *bike, Linepieces *linepieces)
 			break;
 		}
 
+		/* Mouse click. */
 		case TB_EVENT_MOUSE: {
 			Linepieces__add(linepieces, ev.x, ev.y);
 			break;

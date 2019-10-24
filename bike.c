@@ -39,9 +39,9 @@ int linepiece_count, int ground, float gravity, float speed_factor)
 	/* If a line exist below the bike, within it's hitbox,
 	 * set that line as the bike's ground. */
 	for(int i = 0; i < linepiece_count; i++) {
-		if(abs(this->x - linepiece_x[i]) < 5) {
-			ground = linepiece_y[i];
-		}
+		if(abs(this->x - linepiece_x[i]) < BIKE_WIDTH)
+			if(this->y - BIKE_HEIGHT < linepiece_y[i])
+				ground = linepiece_y[i];
 	}
 
 	/* Prevent the bike from falling through the ground. */
@@ -59,9 +59,14 @@ void Bike__draw(Bike *this)
 	 * and draw that character. */
 	for(int y = 0; y < BIKE_SPRITE_SIZE / BIKE_SPRITE_ROW; y++) {
 		for(int x = 0; x < BIKE_SPRITE_ROW; x++) {
-			tb_change_cell(this->x + x,
-			this->y - BIKE_SPRITE_SIZE / BIKE_SPRITE_ROW + 1 + y,
-			Bike__sprite[index++], BIKE_COLOR, BACKGROUND_COLOR);
+			/* Don't draw spaces. */
+			if(Bike__sprite[index] != ' ') {
+				tb_change_cell(this->x + x,
+				this->y - BIKE_SPRITE_SIZE / BIKE_SPRITE_ROW + 1 + y,
+				Bike__sprite[index], BIKE_COLOR, BACKGROUND_COLOR);
+			}
+
+			index++;
 		}
 	}
 }
