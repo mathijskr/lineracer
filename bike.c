@@ -19,7 +19,7 @@ void Bike__accelerate(Bike *this, float direction)
 }
 
 void Bike__update(Bike *this, int linepiece_x[], int linepiece_y[],
-int linepiece_count, int ground, float gravity, float speed_factor)
+int linepiece_count, int ground, int wall, float gravity, float speed_factor)
 {
 	/* Change the bike's acceleration according to the update speed. */
 	this->ay = gravity / speed_factor;
@@ -45,10 +45,26 @@ int linepiece_count, int ground, float gravity, float speed_factor)
 	}
 
 	/* Prevent the bike from falling through the ground. */
-	if(this->y > ground)
+	if(this->y > ground) {
 		this->y = ground;
-	else
+		this->vy = 0.0f;
+		this->ay = 0.0f;
+	} else {
 		this->y += this->vy;
+	}
+
+	/* Stop the bike at the walls. */
+	if(this->x > wall - BIKE_WIDTH) {
+		this->vx = 0.0f;
+		this->ax = 0.0f;
+		this->x = wall - BIKE_WIDTH;
+	}
+
+	if(this->x < 0.0f) {
+		this->vx = 0.0f;
+		this->ax = 0.0f;
+		this->x = 0.0f;
+	}
 }
 
 void Bike__draw(Bike *this)

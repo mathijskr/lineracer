@@ -43,7 +43,7 @@ int main(int argv, char **argc)
 			input(&bike, &linepieces);
 
 			Bike__update(&bike, linepieces.x, linepieces.y,
-			linepieces.SIZE, GROUND, GRAVITY, 1000.0f / UPDATE_SPEED);
+			linepieces.SIZE, GROUND, WALL, GRAVITY, 1000.0f / UPDATE_SPEED);
 		}
 
 		/* Draw. */

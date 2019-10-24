@@ -4,7 +4,8 @@
 #include "termbox.h"
 #include "constants.h"
 
-#define LINEPIECES_MAX_SIZE 100
+/* How many lines are allowed before old lines are deleted. */
+#define LINEPIECES_MAX_SIZE 200
 #define LINE_COLOR TB_BLUE
 
 typedef struct Linepieces Linepieces;
