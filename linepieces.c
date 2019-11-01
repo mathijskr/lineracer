@@ -56,11 +56,11 @@ void Linepieces__draw(Linepieces *this)
 
 			if(delta_y == 1){
 				if(delta_x == 1){
-					this->line_symbols[i] = '/';
+					this->line_symbols[i] = '\\';
 				} else if(delta_x == 0){
 					this->line_symbols[i] = '|';
 				} else if(delta_x == -1){
-					this->line_symbols[i] = '\\';
+					this->line_symbols[i] = '/';
 				}
 			}
 		}
