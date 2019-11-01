@@ -5,7 +5,7 @@
 #include "constants.h"
 
 /* How many lines are allowed before old lines are deleted. */
-#define LINEPIECES_MAX_SIZE 200
+#define LINEPIECES_MAX_SIZE 2000
 #define LINE_COLOR TB_BLUE
 
 typedef struct Linepieces Linepieces;

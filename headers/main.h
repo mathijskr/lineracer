@@ -1,6 +1,9 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#define _POSIX_C_SOURCE 199309L
+
+#include <sys/time.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>

@@ -1,5 +1,5 @@
 CC=gcc
-FLAGS=-Wall -g 
+FLAGS=-Wall -g -Wextra -ansi -pedantic -pedantic-errors -Wcast-align -Wcast-qual -Wchar-subscripts -Wcomment -Wdisabled-optimization -Wunreachable-code -Wunused -Wunused-function -Wunused-label -Wunused-parameter -Wunused-value -Wunused-variable -Wuninitialized -Wstack-protector -std=c99
 LIBS=-lpthread -ltermbox
 OUT=lineracer
 INCLUDE=-I headers/

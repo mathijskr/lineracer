@@ -39,7 +39,7 @@ int linepiece_count, int ground, int wall, float gravity, float speed_factor)
 	/* If a line exist below the bike, within it's hitbox,
 	 * set that line as the bike's ground. */
 	for(int i = 0; i < linepiece_count; i++) {
-		if(abs(this->x - linepiece_x[i]) < BIKE_WIDTH)
+		if(abs((int) this->x - linepiece_x[i]) < BIKE_WIDTH)
 			if(this->y - BIKE_HEIGHT < linepiece_y[i])
 				ground = linepiece_y[i];
 	}

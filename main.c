@@ -7,7 +7,7 @@ bool EXIT = false;
 int elapsed_time = 0;
 
 
-int main(int argv, char **argc)
+int main()
 {
 	int code = tb_init();
 
